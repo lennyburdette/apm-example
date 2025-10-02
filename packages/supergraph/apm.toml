@@ -1,0 +1,16 @@
+[package]
+name = "@example/supergraph"
+type = "@apollo/supergraph"
+description = "My supergraph"
+
+[dependencies]
+"@example/posts" = { tag = "dev" }
+"@example/users" = { tag = "dev" }
+
+[registry]
+url = "https://c52ab03624a1.ngrok-free.app"
+
+[repository]
+path = "packages/supergraph"
+ref = "main"
+url = "https://github.com/lennyburdette/apm-example.git"

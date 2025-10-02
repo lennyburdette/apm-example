@@ -1,0 +1,15 @@
+[package]
+name = "@example/client-a"
+type = "@apollo/operations"
+description = "Client A"
+
+[repository]
+url = "https://github.com/lennyburdette/apm-example.git"
+ref = "main"
+path = "packages/client-a"
+
+[registry]
+url = "https://c52ab03624a1.ngrok-free.app"
+
+[dependencies]
+"@example/public" = { tag = "dev" }

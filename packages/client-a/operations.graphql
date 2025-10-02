@@ -1,0 +1,30 @@
+# Get all posts
+query Posts {
+  posts {
+    authorId
+    content
+    createdAt
+    id
+    title
+  }
+}
+
+# Get all users
+query Users {
+  users {
+    email
+    id
+    name
+  }
+}
+
+# Get a post by ID
+query PostsById($id: String!) {
+  postsById(id: $id) {
+    authorId
+    content
+    createdAt
+    id
+    title
+  }
+}

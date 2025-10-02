@@ -1,0 +1,38 @@
+name: Check Dependents
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check-dependents:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package:
+          - client-a
+          - posts
+          - public
+          - supergraph
+          - users
+      fail-fast: false
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get APM CLI
+        run: |
+          oras pull ghcr.io/${{ github.repository_owner }}/apm:latest
+          mkdir -p ./bin
+          mv apm ./bin/apm
+          chmod +x ./bin/apm
+          ./bin/apm --version
+        env:
+          ORAS_USER: ${{ github.actor }}
+          ORAS_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check dependents for ${{ matrix.package }}
+        working-directory: packages/${{ matrix.package }}
+        run: ../../bin/apm check-dependents --tag dev

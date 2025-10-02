@@ -1,0 +1,36 @@
+version = 1
+root_dependencies = ["@example/supergraph"]
+
+[registry]
+url = "https://c52ab03624a1.ngrok-free.app"
+
+[[package]]
+key = "@example/posts"
+type = "registry"
+namespace = "@example"
+name = "posts"
+version = "0.1.0"
+registry_url = "https://c52ab03624a1.ngrok-free.app"
+tag = "dev"
+
+[[package]]
+key = "@example/supergraph"
+type = "registry"
+namespace = "@example"
+name = "supergraph"
+version = "0.1.0"
+registry_url = "https://c52ab03624a1.ngrok-free.app"
+dependencies = [
+    "@example/posts",
+    "@example/users",
+]
+tag = "dev"
+
+[[package]]
+key = "@example/users"
+type = "registry"
+namespace = "@example"
+name = "users"
+version = "0.1.0"
+registry_url = "https://c52ab03624a1.ngrok-free.app"
+tag = "dev"

@@ -1,0 +1,60 @@
+name: Publish Packages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package:
+          - client-a
+          - posts
+          - public
+          - supergraph
+          - users
+      fail-fast: false
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Check if package changed
+        id: changed
+        working-directory: packages/${{ matrix.package }}
+        run: |
+          if git diff HEAD~1 --quiet -- .; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "Package has no changes since last commit"
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "Package has changes, will publish"
+          fi
+
+      - name: Get APM CLI
+        if: steps.changed.outputs.changed == 'true'
+        run: |
+          oras pull ghcr.io/${{ github.repository_owner }}/apm:latest
+          mkdir -p ./bin
+          mv apm ./bin/apm
+          chmod +x ./bin/apm
+          ./bin/apm --version
+        env:
+          ORAS_USER: ${{ github.actor }}
+          ORAS_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish ${{ matrix.package }}
+        if: steps.changed.outputs.changed == 'true'
+        working-directory: packages/${{ matrix.package }}
+        env:
+          GIT_SHA: ${{ github.sha }}
+        run: ../../bin/apm publish --version $GIT_SHA
+
+      - name: Skip publishing ${{ matrix.package }}
+        if: steps.changed.outputs.changed == 'false'
+        run: echo "Skipping publish - no changes detected in ${{ matrix.package }}"
