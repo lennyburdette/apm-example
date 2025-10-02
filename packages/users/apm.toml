@@ -1,0 +1,18 @@
+[package]
+name = "@example/users"
+type = "@apollo/openapi"
+description = "Users API"
+
+[repository]
+url = "https://github.com/lennyburdette/apm-example.git"
+ref = "main"
+path = "packages/users"
+
+[registry]
+url = "http://localhost:5150"
+
+[build]
+subgraph_name = "users"
+
+[runtime]
+"$config" = { protocol = "http", host = "localhost", port = 8001 }

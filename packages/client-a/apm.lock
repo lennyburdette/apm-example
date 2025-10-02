@@ -1,0 +1,50 @@
+version = 1
+root_dependencies = ["@example/public"]
+
+[registry]
+url = "http://localhost:5150"
+
+[[package]]
+key = "@example/posts"
+type = "registry"
+namespace = "@example"
+name = "posts"
+version = "0.1.0"
+registry_url = "http://localhost:5150"
+tag = "dev"
+
+[[package]]
+key = "@example/public"
+type = "registry"
+namespace = "@example"
+name = "public"
+version = "0.1.0"
+registry_url = "http://localhost:5150"
+dependencies = [
+    "@example/posts",
+    "@example/supergraph",
+    "@example/users",
+]
+tag = "dev"
+
+[[package]]
+key = "@example/supergraph"
+type = "registry"
+namespace = "@example"
+name = "supergraph"
+version = "0.1.0"
+registry_url = "http://localhost:5150"
+dependencies = [
+    "@example/posts",
+    "@example/users",
+]
+tag = "dev"
+
+[[package]]
+key = "@example/users"
+type = "registry"
+namespace = "@example"
+name = "users"
+version = "0.1.0"
+registry_url = "http://localhost:5150"
+tag = "dev"

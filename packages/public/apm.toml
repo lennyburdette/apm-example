@@ -1,0 +1,18 @@
+[package]
+name = "@example/public"
+type = "@apollo/contract"
+description = "Public API contract"
+
+[repository]
+url = "https://github.com/lennyburdette/apm-example.git"
+ref = "main"
+path = "packages/public"
+
+[registry]
+url = "http://localhost:5150"
+
+[rules]
+exclude = ["private"]
+
+[dependencies]
+"@example/supergraph" = { tag = "dev" }

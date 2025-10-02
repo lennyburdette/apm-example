@@ -1,0 +1,16 @@
+[package]
+name = "@example/supergraph"
+type = "@apollo/supergraph"
+description = "My supergraph"
+
+[dependencies]
+"@example/posts" = { tag = "dev" }
+"@example/users" = { tag = "dev" }
+
+[registry]
+url = "http://localhost:5150"
+
+[repository]
+path = "packages/supergraph"
+ref = "main"
+url = "https://github.com/lennyburdette/apm-example.git"
