@@ -1,7 +1,7 @@
 [package]
 name = "@example/users"
 type = "@apollo/openapi"
-description = "Users API"
+description = "Users API from OpenAPI spec"
 
 [repository]
 url = "https://github.com/lennyburdette/apm-example.git"

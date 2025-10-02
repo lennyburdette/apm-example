@@ -1,7 +1,7 @@
 [package]
 name = "@example/supergraph"
 type = "@apollo/supergraph"
-description = "My supergraph"
+description = "My supergraph with users and posts"
 
 [dependencies]
 "@example/posts" = { tag = "dev" }
