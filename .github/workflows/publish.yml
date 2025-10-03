@@ -56,4 +56,6 @@ jobs:
         working-directory: packages/${{ matrix.package }}
         env:
           GIT_SHA: ${{ github.sha }}
-        run: ../../apm publish --version $GIT_SHA --yes
+        run: |
+          ../../apm publish --yes
+          ../../apm tag dev
