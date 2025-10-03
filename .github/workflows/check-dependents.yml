@@ -47,4 +47,6 @@ jobs:
 
       - name: Check dependents for ${{ matrix.package }}
         working-directory: packages/${{ matrix.package }}
+        env:
+          APOLLO_ELV2_LICENSE: accept
         run: ../../apm check-dependents --tag dev --for-tag dev
