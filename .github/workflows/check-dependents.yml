@@ -25,7 +25,7 @@ jobs:
       - name: Install ORAS
         run: |
           VERSION="1.1.0"
-          ARCH="linux_amd64"
+          ARCH="darwin_amd64"
           curl -LO "https://github.com/oras-project/oras/releases/download/v${VERSION}/oras_${VERSION}_${ARCH}.tar.gz"
           tar -xzf "oras_${VERSION}_${ARCH}.tar.gz"
           sudo mv oras /usr/local/bin/
@@ -38,7 +38,7 @@ jobs:
           oras pull ghcr.io/${{ github.repository_owner }}/apm:latest -o ./tmp
           mv ./tmp/target/release/apm ./apm
           chmod +x ./apm
-          ./apm --version
+          ./apm --help
 
       - name: Check dependents for ${{ matrix.package }}
         working-directory: packages/${{ matrix.package }}
