@@ -24,5 +24,5 @@ components:
           type: string
         name:
           type: string
-        email:
+        emailAddress:
           type: string
