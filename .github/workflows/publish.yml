@@ -36,7 +36,7 @@ jobs:
 
       - name: Install ORAS
         run: |
-          VERSION="1.1.0"
+          VERSION="1.3.0"
           ARCH="darwin_amd64"
           curl -LO "https://github.com/oras-project/oras/releases/download/v${VERSION}/oras_${VERSION}_${ARCH}.tar.gz"
           tar -xzf "oras_${VERSION}_${ARCH}.tar.gz"
