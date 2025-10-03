@@ -26,5 +26,3 @@ components:
           type: string
         email:
           type: string
-        emailAddress:
-          type: string
