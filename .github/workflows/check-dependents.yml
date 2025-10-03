@@ -24,8 +24,10 @@ jobs:
 
       - name: Install ORAS
         run: |
-          curl -LO https://github.com/oras-project/oras/releases/download/v1.1.0/oras_1.1.0_linux_amd64.tar.gz
-          tar -xzf oras_1.1.0_linux_amd64.tar.gz
+          VERSION="1.1.0"
+          ARCH="linux_amd64"
+          curl -LO "https://github.com/oras-project/oras/releases/download/v${VERSION}/oras_${VERSION}_${ARCH}.tar.gz"
+          tar -xzf "oras_${VERSION}_${ARCH}.tar.gz"
           sudo mv oras /usr/local/bin/
           oras version
 

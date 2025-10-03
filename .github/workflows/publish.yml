@@ -4,6 +4,18 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      package:
+        description: 'Package to publish'
+        required: true
+        type: choice
+        options:
+          - client-a
+          - posts
+          - public
+          - supergraph
+          - users
 
 jobs:
   publish:
@@ -21,46 +33,26 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
-
-      - name: Check if package changed
-        id: changed
-        working-directory: packages/${{ matrix.package }}
-        run: |
-          if git diff HEAD~1 --quiet -- .; then
-            echo "changed=false" >> $GITHUB_OUTPUT
-            echo "Package has no changes since last commit"
-          else
-            echo "changed=true" >> $GITHUB_OUTPUT
-            echo "Package has changes, will publish"
-          fi
 
       - name: Install ORAS
-        if: steps.changed.outputs.changed == 'true'
         run: |
-          curl -LO https://github.com/oras-project/oras/releases/download/v1.1.0/oras_1.1.0_darwin_amd64.tar.gz
-          tar -xzf oras_1.1.0_darwin_amd64.tar.gz
+          VERSION="1.1.0"
+          ARCH="darwin_amd64"
+          curl -LO "https://github.com/oras-project/oras/releases/download/v${VERSION}/oras_${VERSION}_${ARCH}.tar.gz"
+          tar -xzf "oras_${VERSION}_${ARCH}.tar.gz"
           sudo mv oras /usr/local/bin/
           oras version
 
       - name: Get APM CLI
-        if: steps.changed.outputs.changed == 'true'
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | oras login ghcr.io -u ${{ github.actor }} --password-stdin
           mkdir -p ./bin
           oras pull ghcr.io/${{ github.repository_owner }}/apm:latest -o ./bin
-          ls -la ./bin/target/release
-          chmod +x ./bin/target/release/apm
-          ./bin/target/release/apm --help
+          chmod +x ./bin/apm
+          ./bin/apm --version
 
       - name: Publish ${{ matrix.package }}
-        if: steps.changed.outputs.changed == 'true'
         working-directory: packages/${{ matrix.package }}
         env:
           GIT_SHA: ${{ github.sha }}
-        run: ../../bin/target/release/apm publish --version $GIT_SHA --yes
-
-      - name: Skip publishing ${{ matrix.package }}
-        if: steps.changed.outputs.changed == 'false'
-        run: echo "Skipping publish - no changes detected in ${{ matrix.package }}"
+        run: ../../bin/apm publish --version $GIT_SHA --yes
