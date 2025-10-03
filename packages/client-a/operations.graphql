@@ -12,7 +12,7 @@ query Posts {
 # Get all users
 query Users {
   users {
-    emailAddress: email
+    email
     id
     name
   }
