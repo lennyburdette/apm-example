@@ -34,11 +34,12 @@ jobs:
       - name: Get APM CLI
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | oras login ghcr.io -u ${{ github.actor }} --password-stdin
-          mkdir -p ./bin
-          oras pull ghcr.io/${{ github.repository_owner }}/apm:latest -o ./bin
-          chmod +x ./bin/apm
-          ./bin/apm --version
+          mkdir -p ./tmp
+          oras pull ghcr.io/${{ github.repository_owner }}/apm:latest -o ./tmp
+          mv ./tmp/target/release/apm ./apm
+          chmod +x ./apm
+          ./apm --version
 
       - name: Check dependents for ${{ matrix.package }}
         working-directory: packages/${{ matrix.package }}
-        run: ../../bin/apm check-dependents --tag dev
+        run: ../../apm check-dependents --tag dev
