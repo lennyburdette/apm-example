@@ -42,4 +42,4 @@ jobs:
 
       - name: Check dependents for ${{ matrix.package }}
         working-directory: packages/${{ matrix.package }}
-        run: ../../apm check-dependents --for-tag dev
+        run: ../../apm check-dependents --tag --for-tag dev
