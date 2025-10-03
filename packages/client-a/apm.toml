@@ -2,6 +2,7 @@
 name = "@example/client-a"
 type = "@apollo/operations"
 description = "A Client"
+auto_version = true
 
 [repository]
 url = "https://github.com/lennyburdette/apm-example.git"

@@ -2,6 +2,7 @@
 name = "@example/supergraph"
 type = "@apollo/supergraph"
 description = "My supergraph with users and posts"
+auto_version = true
 
 [dependencies]
 "@example/posts" = { tag = "dev" }

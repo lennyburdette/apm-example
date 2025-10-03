@@ -2,6 +2,8 @@
 name = "@example/users"
 type = "@apollo/openapi"
 description = "Users API from OpenAPI spec"
+auto_version = true
+spec = "openapi.yaml"
 
 [repository]
 url = "https://github.com/lennyburdette/apm-example.git"

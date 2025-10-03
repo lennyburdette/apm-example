@@ -2,6 +2,7 @@
 name = "@example/posts"
 type = "@apollo/openapi"
 description = "Posts API from OpenAPI spec"
+auto_version = true
 
 [repository]
 url = "https://github.com/lennyburdette/apm-example.git"

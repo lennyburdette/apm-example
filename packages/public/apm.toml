@@ -2,6 +2,7 @@
 name = "@example/public"
 type = "@apollo/contract"
 description = "Public GraphQL API"
+auto_version = true
 
 [repository]
 url = "https://github.com/lennyburdette/apm-example.git"
